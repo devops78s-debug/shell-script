@@ -1,6 +1,9 @@
 #!/bin/bash
 
 USERID=$(id -u)
+TIMESTAMP=$(date +%F-%H-%M-%S)
+SCRIPT_NAME=$($0  | cut -d "." -f1)
+LOGFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
 
 #VALIDATE(){
     #echo "Exit status: $1"
@@ -24,12 +27,12 @@ else
     echo "You are super user."
 fi
 
-dnf install mysql -y
+dnf install mysql -y &>>$LOGFILE
 
 VALIDATE $? "installing mysql"
 
 
-dnf install git -y
+dnf install git -y &>>$LOGFILE
 
 VALIDATE $? "installing git"
 
